@@ -17,7 +17,6 @@ var board_status = {};
 
 /**
  * @typedef {object} mapa_celdas_st
- * @property {object} cell_id - fila y columna concatenada
  * @property {object} i - numero de fila
  * @property {object} j - numero de columna
  * @property {object} status - o (open), f (flag)
@@ -27,7 +26,7 @@ var board_status = {};
 
 /**
  * @param {config} config_data
- * @returns {mapa_celdas_st[]} 
+ * @returns {Object.<string, mapa_celdas_st>}
  */
 function initializeCells(config_data) {
   //crea listado de minas
@@ -38,7 +37,7 @@ function initializeCells(config_data) {
   } while (minas.length <= config_data.nMinas - 1);
 
   // crea mapa de celdas
-  var mapa_celdas = [];
+  var mapa_celdas = {};
   var contador = 0;
   for (let i = 1; i <= config_data.lado_tablero; i++) {
     for (let j = 1; j <= config_data.lado_tablero; j++) {
@@ -52,7 +51,8 @@ function initializeCells(config_data) {
       } else {
         mina = false;
       }
-      mapa_celdas[contador] = { cell_id, i, j, status, mina };
+      // mapa_celdas[contador] = { cell_id, i, j, status, mina };
+      mapa_celdas[cell_id] = {  i, j, status, mina };
     }
   }
 
@@ -61,8 +61,8 @@ function initializeCells(config_data) {
 }
 
 /**
- * @param {mapa_celdas_st[]} celdas_calculadas 
- * @returns {mapa_celdas_st[]}
+ * @param {Object.<string, mapa_celdas_st>} celdas_calculadas 
+ * @returns {Object.<string, mapa_celdas_st>}
  */
 function getAdjacentMines(celdas_calculadas){
   var mapa_celdas_nminas = [];
