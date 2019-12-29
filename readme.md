@@ -1,0 +1,1 @@
+API genradora de tableros de buscaminass
