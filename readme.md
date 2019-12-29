@@ -1,1 +1,1 @@
-API genradora de tableros de buscaminass
+API generadora de tableros de buscaminas
