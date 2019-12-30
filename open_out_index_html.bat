@@ -1,0 +1,1 @@
+chrome ./out/index.html

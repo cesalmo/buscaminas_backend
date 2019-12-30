@@ -25,6 +25,7 @@ var board_status = {};
  */
 
 /**
+ * Crea un tablero nuevo
  * @param {config} config_data
  * @returns {Object.<string, mapa_celdas_st>}
  */
@@ -37,6 +38,9 @@ function initializeCells(config_data) {
   } while (minas.length <= config_data.nMinas - 1);
 
   // crea mapa de celdas
+  /**
+   * @type {Object.<string, mapa_celdas_st>} mapa_celdas
+   */
   var mapa_celdas = {};
   var contador = 0;
   for (let i = 1; i <= config_data.lado_tablero; i++) {
@@ -51,23 +55,87 @@ function initializeCells(config_data) {
       } else {
         mina = false;
       }
-      // mapa_celdas[contador] = { cell_id, i, j, status, mina };
-      mapa_celdas[cell_id] = {  i, j, status, mina };
+      mapa_celdas[cell_id] = { i, j, status, mina };
     }
   }
 
   return getAdjacentMines(mapa_celdas);
-  
+
 }
 
 /**
- * @param {Object.<string, mapa_celdas_st>} celdas_calculadas 
+ * calcula el sumatorio de todas las minas de las celdas adyacentes
+ * @param {Object.<string, mapa_celdas_st>} celdas_calculadas
  * @returns {Object.<string, mapa_celdas_st>}
  */
-function getAdjacentMines(celdas_calculadas){
-  var mapa_celdas_nminas = [];
-  // celdas_calculadas.some(el => el.cell_id == "10 2")
-  return mapa_celdas_nminas;
+function getAdjacentMines(celdas_calculadas) {
+
+  for (var celda in celdas_calculadas) {
+    var i = celdas_calculadas[celda].i;
+    var j = celdas_calculadas[celda].j;
+
+    var key11 = `${i-1} ${j-1}`;
+    var key12 = `${i-1} ${j}`;
+    var key13 = `${i-1} ${j+1}`;
+    var key21 = `${i} ${j-1}`;
+    var key23 = `${i} ${j+1}`;
+    var key31 = `${i+1} ${j-1}`;
+    var key32 = `${i+1} ${j}`;
+    var key33 = `${i+1} ${j+1}`;
+
+    var nMinasCelda = 0;
+    if (celdas_calculadas.hasOwnProperty(key11)){
+      if (celdas_calculadas[key11].mina){
+        nMinasCelda++;
+      }
+    };
+
+    if (celdas_calculadas.hasOwnProperty(key12)){
+      if (celdas_calculadas[key12].mina){
+        nMinasCelda++;
+      }
+    };
+    
+    if (celdas_calculadas.hasOwnProperty(key13)){
+      if (celdas_calculadas[key13].mina){
+        nMinasCelda++;
+      }
+    };
+
+    if (celdas_calculadas.hasOwnProperty(key21)){
+      if (celdas_calculadas[key21].mina){
+        nMinasCelda++;
+      }
+    };
+
+    if (celdas_calculadas.hasOwnProperty(key23)){
+      if (celdas_calculadas[key23].mina){
+        nMinasCelda++;
+      }
+    };
+
+    if (celdas_calculadas.hasOwnProperty(key31)){
+      if (celdas_calculadas[key31].mina){
+        nMinasCelda++;
+      }
+    };
+
+    if (celdas_calculadas.hasOwnProperty(key32)){
+      if (celdas_calculadas[key32].mina){
+        nMinasCelda++;
+      }
+    };
+
+    if (celdas_calculadas.hasOwnProperty(key33)){
+      if (celdas_calculadas[key33].mina){
+        nMinasCelda++;
+      }
+    };
+
+    celdas_calculadas[celda].nminascerca = nMinasCelda;
+  }
+
+  return celdas_calculadas;
 };
 
 initializeCells(config);

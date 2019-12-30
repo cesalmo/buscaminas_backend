@@ -4,7 +4,8 @@
   "description": "buscaminas backend",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "doc": "jsdoc index.js",
+    "open_jsdoc" : "open_out_index_html.bat"
   },
   "author": "",
   "license": "ISC",
