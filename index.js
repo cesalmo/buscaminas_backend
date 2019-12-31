@@ -4,19 +4,27 @@ var express = require('express');
 var app = express();
 
 
-var config = {
-  lado_tablero: 10,
-  nMinas: 5,
-};
+// http://localhost:3000/api/buscaminas?lado=10&minas=5
+app.get('/api/buscaminas', function (req, res) {
 
-var oTablero = initializeCells(config);
-console.log(oTablero);
+  var oQuery = req.query;
+  if (oQuery.hasOwnProperty("lado") && oQuery.hasOwnProperty("minas")) {
+
+    var config = {
+      lado_tablero: oQuery.lado,
+      nMinas: oQuery.minas,
+    };
+
+    var oTablero = initializeCells(config);
+
+    res.send(oTablero);
+  } else {
+    res.send('mal');
+  };
 
 
-// app.get('/', function (req, res) {
-//   res.send('Hello World!');
-// });
+});
 
-// app.listen(3000, function () {
-//   console.log('Example app listening on port 3000!');
-// });
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!');
+});
